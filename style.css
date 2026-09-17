@@ -1,0 +1,340 @@
+:root {
+  --bg: #0b1220;
+  --bg-elev: #121a2b;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #eef3ff;
+  --muted: #9aa8c3;
+  --accent: #5eead4;
+  --accent-2: #38bdf8;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  --glass: rgba(255, 255, 255, 0.22);
+  --radius: 22px;
+  --bottle-w: 62px;
+  --bottle-h: 220px;
+  --layer-h: 44px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.16), transparent 42%),
+    radial-gradient(ellipse at 90% 10%, rgba(94, 234, 212, 0.12), transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgba(167, 139, 250, 0.1), transparent 40%);
+  z-index: 0;
+}
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+  width: min(920px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 36px 0 12px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  letter-spacing: 0.02em;
+}
+
+.lede {
+  margin: 12px auto 0;
+  max-width: 38rem;
+  color: var(--muted);
+}
+
+.panel {
+  margin-top: 22px;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stat-value {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.actions,
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1.15rem;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  color: #042f2e;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  font-weight: 700;
+}
+
+.btn-ghost {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, var(--bottle-w));
+  justify-content: center;
+  gap: 22px 28px;
+  margin: 28px 0 8px;
+  min-height: calc(var(--bottle-h) + 36px);
+}
+
+.bottle {
+  position: relative;
+  width: var(--bottle-w);
+  height: var(--bottle-h);
+  padding: 10px 8px 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 0;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.28));
+}
+
+.bottle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px 12px 28px 28px;
+  border: 3px solid var(--glass);
+  border-top-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.07), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.08));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.bottle::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  right: 12px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.38);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: rgba(18, 26, 43, 0.45);
+  pointer-events: none;
+}
+
+.bottle.selected {
+  transform: translateY(-12px);
+}
+
+.bottle.selected::before {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(94, 234, 212, 0.18);
+}
+
+.bottle.complete::before {
+  border-color: rgba(74, 222, 128, 0.7);
+}
+
+.layer {
+  height: var(--layer-h);
+  margin: 0 6px;
+  background: var(--c);
+  box-shadow: inset 0 8px 10px rgba(255, 255, 255, 0.18), inset 0 -6px 10px rgba(0, 0, 0, 0.18);
+}
+
+.layer:first-child {
+  border-radius: 0 0 20px 20px;
+}
+
+.layer + .layer {
+  margin-top: 0;
+}
+
+.status {
+  text-align: center;
+  color: var(--muted);
+  min-height: 1.6em;
+  margin: 8px 0 0;
+}
+
+.howto {
+  margin: 28px 0 12px;
+  padding: 8px 4px 24px;
+}
+
+.howto h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.howto ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.site-footer {
+  padding: 8px 0 32px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: rgba(5, 8, 16, 0.62);
+  padding: 20px;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  padding: 28px 24px;
+  border-radius: 24px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.modal-kicker {
+  margin: 0;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.modal-card h2 {
+  margin: 8px 0 6px;
+  font-size: 2rem;
+}
+
+.modal-card p {
+  color: var(--muted);
+}
+
+.modal-actions {
+  justify-content: center;
+  margin-top: 18px;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --bottle-w: 52px;
+    --bottle-h: 196px;
+    --layer-h: 38px;
+  }
+
+  .board {
+    grid-template-columns: repeat(3, var(--bottle-w));
+    gap: 28px 36px;
+  }
+
+  .panel {
+    padding: 16px 14px 18px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .btn {
+    flex: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --bottle-w: 46px;
+    --bottle-h: 180px;
+    --layer-h: 34px;
+  }
+
+  .board {
+    gap: 22px 18px;
+  }
+}

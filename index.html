@@ -1,11 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Water Sort Game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Sort Puzzle - 無料で遊べるウォーターソートパズル</title>
+  <meta name="description" content="無料のウォーターソートパズル。試験管の一番上の同色の水を、空きがある試験管へ移して色をそろえましょう。クリックだけで遊べるブラウザゲームです。">
+  <meta name="keywords" content="Water Sort,ウォーターソート,パズル,無料ゲーム,ブラウザゲーム">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Water Sort Puzzle - 無料で遊べるウォーターソートパズル">
+  <meta property="og:description" content="試験管の水を同色でそろえる無料パズル。一番上の色が同じ、または空の試験管へ移して全色を完成させましょう。">
+  <meta property="og:locale" content="ja_JP">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Water Sort Game</h1>
-    <p>Under Development...</p>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="site-header">
+    <p class="eyebrow">Free Browser Puzzle</p>
+    <h1>Water Sort Puzzle</h1>
+    <p class="lede">試験管の水を、同じ色ごとにそろえるパズルです。一番上の色をクリックで移して、すべての管を完成させましょう。</p>
+  </header>
+
+  <main>
+    <section class="panel" aria-label="ゲーム画面">
+      <div class="hud">
+        <div class="stat">
+          <span class="stat-label">手数</span>
+          <span id="move-count" class="stat-value">0</span>
+        </div>
+        <div class="actions">
+          <button type="button" id="btn-reset" class="btn btn-ghost">リセット</button>
+          <button type="button" id="btn-new" class="btn btn-primary">新しいゲーム</button>
+        </div>
+      </div>
+      <div id="board" class="board" role="group" aria-label="試験管"></div>
+      <p id="status" class="status" aria-live="polite">試験管をタップして、水を移す先を選んでください。</p>
+    </section>
+
+    <section class="howto" aria-labelledby="howto-heading">
+      <h2 id="howto-heading">遊び方</h2>
+      <ol>
+        <li>移したい水が入った試験管をクリック（またはタップ）して選択します。</li>
+        <li>移動先の試験管をクリックします。空きがあり、一番上の色が同じ（または空）なら水が移ります。</li>
+        <li>1本が同じ色で満たされると完成です。すべての色がそろうとクリアです。</li>
+      </ol>
+    </section>
+  </main>
+
+  <div id="clear-modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="clear-title">
+      <p class="modal-kicker">Puzzle Complete</p>
+      <h2 id="clear-title">クリア！</h2>
+      <p id="clear-detail">すべての試験管の色がそろいました。</p>
+      <div class="modal-actions">
+        <button type="button" id="btn-modal-reset" class="btn btn-ghost">リセット</button>
+        <button type="button" id="btn-modal-new" class="btn btn-primary">新しいゲーム</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Water Sort Puzzle — 無料で遊べるウォーターソートパズル</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
